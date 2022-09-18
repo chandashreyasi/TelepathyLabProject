@@ -1,0 +1,73 @@
+﻿@page
+@model ReelsCollection.Pages.Clients.CreateModel
+@{
+}
+
+<br>
+<h2> Create a new Reel</h2>
+@if(Model.errorMessage.Length>0)
+            {
+                <div class="alert alert-warning alert-dismissible fade show" role="alert"  >
+                    <strong>@Model.errorMessage</strong>
+                    <button type="button" class="btn-info" data-dismiss="alert"></button>
+                    </div>
+            }
+
+<form method="post">
+    <div class="row mb-3">
+        <label class="col-sm-3 col-form-label"> Name </label>
+        <div class="col-sm-6">
+            <input type="text" class="form-control" name="name" value="@Model.reelInfo.name">
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <label class="col-sm-3 col-form-label"> Description </label>
+        <div class="col-sm-6">
+            <input type="text" class="form-control" name="description" value="@Model.reelInfo.description">
+        </div>
+    </div>
+
+
+
+    <div class="row mb-3">
+        <label class="col-sm-3 col-form-label"> Standard </label>
+        <div class="col-sm-6">
+            @{ List<SelectListItem> stdLists = new List<SelectListItem>();
+                stdLists.Add(new SelectListItem { Text = "PAL", Value = "PAL", Selected = true });
+                stdLists.Add(new SelectListItem { Text = "NTSC", Value = "NTSC" });
+            }
+            @Html.DropDownList("standard", stdLists, new { @class = "form-control" })
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <label class="col-sm-3 col-form-label">Definition </label>
+        <div class="col-sm-6">
+            @{ List<SelectListItem> definitionLsts = new List<SelectListItem>();
+                definitionLsts.Add(new SelectListItem { Text = "SD", Value = "SD", Selected = true });
+                definitionLsts.Add(new SelectListItem { Text = "HD", Value = "HD" });
+            }
+            @Html.DropDownList("definition", definitionLsts, new { @class = "form-control" })
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <label class="col-sm-3 col-form-label">Time Duation in HH:MM:ss format </label>
+        <div class="col-sm-6">
+            <input type="text" class="form-control" name="end_timecode" value="@Model.reelInfo.end_timecode">
+        </div>
+    </div>
+
+
+
+    <div class="row mb-3">
+       
+        <div class="offset-sm-3 col-sm-3 d-grid">
+            <button type="submit" class="btn btn-primary">Submit </button>
+        </div>
+    </div>
+
+</form>
+
+

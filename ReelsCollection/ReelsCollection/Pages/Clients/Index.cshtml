@@ -1,0 +1,72 @@
+﻿@page
+@model ReelsCollection.Pages.Clients.IndexModel
+@{
+}
+@using  ReelsCollection.Pages.Clients
+
+
+
+<br>
+<h2> List of Reels</h2>
+<a class="btn btn-primary btn-sm" href='/Clients/Create'> Create a new Reel</a>
+<table class="table">
+
+    <thead>
+        <tr>
+            <th> NAME</th>
+            <th>DESCRIPTION</th>
+            <th>STANDARD</th>
+            <th>DEFINITION</th>
+            <th>START TIMECODE</th>
+            <th>END TIMECODE</th>
+
+        </tr>
+
+    </thead>
+    <tbody>
+        @foreach (var item in Model.reelList)
+        {
+            <tr>
+                <td>@item.name</td>
+                <td>@item.description</td>
+                <td>@item.standard</td>
+                <td>@item.definition</td>
+                <td>@item.start_timecode</td>
+                <td>@item.end_timecode</td>
+                <td>
+                    <a class="btn btn-primary btn-sm" href="/Clients/Delete?id=@item.id">Delete</a>
+                </td>
+
+            </tr>
+
+        }
+
+    </tbody>
+
+
+
+</table>
+
+
+@{ if ((TempData.Count > 0) && (TempData["ID"].ToString() != "00000000-0000-0000-0000-000000000000"))
+    {
+
+
+        var newReel = Model.reelList.Find(x => x.id == (Guid)TempData["id"]);
+        //var newReelStnadard = (newReel != null) ? newReel.standard : "";
+        //var newReelDefinition = (newReel != null) ? newReel.definition : "";
+
+        if (newReel != null)
+        { 
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <strong> Total Duration for @newReel.standard and  @newReel.definition video clip is @TimeCode.CalculateTotalSeconds(Model.reelList, newReel)</strong>
+            @*<button type="button" class="btn-info" data-dismiss="alert"></button>*@
+        </div>
+        }
+        TempData["ID"] = Guid.Empty;
+
+
+    }
+
+
+    }

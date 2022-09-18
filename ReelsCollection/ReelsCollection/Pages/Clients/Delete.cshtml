@@ -1,0 +1,29 @@
+﻿@page
+@using System.Data.SqlClient;
+
+@{   
+    try
+    {
+        string id = Request.Query["id"];
+        string connectionString = "Data Source=IE4LLTFG648C3;Initial Catalog=myReels;Integrated Security=true;TrustServerCertificate=True";
+
+        using (SqlConnection conn = new SqlConnection(connectionString))
+        {
+            conn.Open();
+            string sql = "Delete from Reels where id =@id";
+
+            using (SqlCommand command = new SqlCommand(sql, conn))
+            {
+                command.Parameters.AddWithValue("@id", id);
+                command.ExecuteNonQuery();
+            }
+        }
+
+    }
+    catch(Exception ex)
+    {
+
+    }
+    Response.Redirect("/Clients/Index");
+}
+
